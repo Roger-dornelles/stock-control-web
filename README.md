@@ -1,4 +1,3 @@
-
 # Stock Control Web
 
 ## 📢 EM DESENVOLVIMENTO 📢
@@ -20,9 +19,15 @@ O sistema esta usando a api criado em nest.js [Link da API](https://github.com/R
 - Next.js
 - Typescript
 - TailwindCSS
-
+- Prettier
+- Eslint
+- Husky
+- Tanstack
+- NextAuth
+- React Hook Form
+- Zod
+- Yup
 
 ## Conclusão
+
 A implementação do sistema de controle de estoque utilizando Next.js representa uma solução moderna e eficiente para os desafios enfrentados na gestão de inventários. A escolha dessa tecnologia possibilita a criação de uma aplicação rápida, segura e escalável, que atende às demandas atuais de negócios em constante transformação. Com uma interface intuitiva e recursos avançados, o sistema facilita o acompanhamento preciso dos produtos, contribuindo para a otimização dos processos internos.
-
-

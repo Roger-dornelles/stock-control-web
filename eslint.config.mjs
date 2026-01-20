@@ -1,18 +1,79 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import nextPlugin from "@next/eslint-plugin-next";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import importX from "eslint-plugin-import-x";
+import reactPlugin from "eslint-plugin-react";
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
-]);
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      "@next/next": nextPlugin,
+      "@typescript-eslint": tsPlugin,
+      "import-x": importX,
+      react: reactPlugin,
+    },
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    rules: {
+      // --- REGRAS DE CÓDIGO ---
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "prefer-const": "error",
+      "no-unused-vars": "off",
 
-export default eslintConfig;
+      // --- LINHA EM BRANCO APÓS FUNÇÕES/COMPONENTES ---
+      "padding-line-between-statements": [
+        "error",
+        {
+          blankLine: "always",
+          prev: ["function", "class", "multiline-const"],
+          next: "*",
+        },
+        { blankLine: "always", prev: "*", next: "export" },
+      ],
+
+      // --- ORGANIZAÇÃO DE IMPORTS ---
+      "import-x/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            ["sibling", "parent"],
+            "index",
+            "type",
+          ],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+          "newlines-between": "always",
+        },
+      ],
+
+      // --- REGRAS DE TYPESCRIPT ---
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/consistent-type-imports": "error",
+
+      // --- REGRAS DO NEXT.JS ---
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "react/self-closing-comp": "error",
+    },
+  },
+  {
+    // Ignora arquivos de build e componentes externos
+    ignores: [".next/*", "node_modules/*", "components/ui/*"],
+  },
+];
