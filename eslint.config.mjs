@@ -11,7 +11,7 @@ export default [
       "@next/next": nextPlugin,
       "@typescript-eslint": tsPlugin,
       "import-x": importX,
-      react: reactPlugin, // Registro do plugin para habilitar a regra react/*
+      react: reactPlugin,
     },
     languageOptions: {
       parser: tsParser,
