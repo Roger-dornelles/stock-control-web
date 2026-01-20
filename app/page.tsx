@@ -1,15 +1,11 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ChakraProvider } from "@chakra-ui/react";
-
-const queryClient = new QueryClient();
-
-const App = ({ Component, pageProps }) => {
+const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <>
+      <div>
+        <h2>Ola mundo.....</h2>
+      </div>
+    </>
   );
 };
+
 export default App;
