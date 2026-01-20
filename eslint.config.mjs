@@ -2,6 +2,7 @@ import nextPlugin from "@next/eslint-plugin-next";
 import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import importX from "eslint-plugin-import-x";
+import reactPlugin from "eslint-plugin-react";
 
 export default [
   {
@@ -10,9 +11,15 @@ export default [
       "@next/next": nextPlugin,
       "@typescript-eslint": tsPlugin,
       "import-x": importX,
+      react: reactPlugin, // Registro do plugin para habilitar a regra react/*
     },
     languageOptions: {
       parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     rules: {
       // --- REGRAS DE CÓDIGO ---
@@ -59,7 +66,7 @@ export default [
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/consistent-type-imports": "error",
 
-      // --- REGRAS DO NEXT.JS---
+      // --- REGRAS DO NEXT.JS ---
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,
       "react/self-closing-comp": "error",
