@@ -3,6 +3,9 @@ import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import importX from "eslint-plugin-import-x";
 import reactPlugin from "eslint-plugin-react";
+import eslintConfigPrettier from "eslint-config-prettier";
+
+console.log("ESLint config carregada com sucesso!");
 
 export default [
   {
@@ -27,7 +30,6 @@ export default [
       "prefer-const": "error",
       "no-unused-vars": "off",
 
-      // --- LINHA EM BRANCO APÓS FUNÇÕES/COMPONENTES ---
       "padding-line-between-statements": [
         "error",
         {
@@ -39,6 +41,8 @@ export default [
       ],
 
       // --- ORGANIZAÇÃO DE IMPORTS ---
+      "import-x/no-unused-modules": "error",
+      "import-x/no-duplicates": "error",
       "import-x/order": [
         "error",
         {
@@ -61,7 +65,13 @@ export default [
       // --- REGRAS DE TYPESCRIPT ---
       "@typescript-eslint/no-unused-vars": [
         "error",
-        { argsIgnorePattern: "^_" },
+        {
+          vars: "all",
+          args: "after-used",
+          ignoreRestSiblings: true,
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/consistent-type-imports": "error",
@@ -73,7 +83,7 @@ export default [
     },
   },
   {
-    // Ignora arquivos de build e componentes externos
     ignores: [".next/*", "node_modules/*", "components/ui/*"],
   },
+  eslintConfigPrettier,
 ];
