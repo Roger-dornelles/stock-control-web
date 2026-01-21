@@ -19,6 +19,7 @@ O sistema esta usando a api criado em nest.js [Link da API](https://github.com/R
 - Next.js
 - Typescript
 - TailwindCSS
+- Docker
 - Prettier
 - Eslint
 - Husky
