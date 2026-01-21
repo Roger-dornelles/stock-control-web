@@ -1,0 +1,21 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instalando dependências necessárias para o sistema
+RUN apk add --no-cache libc6-compat
+
+# Copiando arquivos de pacotes
+COPY package.json package-lock.json* ./
+
+# Instalando dependências do projeto
+RUN npm install
+
+# Copiando o restante do código
+COPY . .
+
+# Porta padrão do Next.js
+EXPOSE 3000
+
+# Comando para rodar 
+CMD ["npm", "run", "dev"]
