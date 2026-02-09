@@ -1,6 +1,39 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const App = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await fetch("/api/signin", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (result.error) {
+      toast.error(
+        result.error ||
+          result.error.erros[0].erros.map((i: string) => i).join(", "),
+      );
+    }
+    setLoading(false);
+    if (!result.error) {
+      toast.success(result.message);
+      setTimeout(() => {
+        // router.push("");
+      }, 1500);
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex min-h-screen w-full items-center justify-center bg-[#050b1a] bg-gradient-to-br from-[#050b1a] via-[#0a192f] to-[#112240] p-4 lg:p-12">
@@ -56,6 +89,9 @@ const App = () => {
                     type="email"
                     className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white transition-all outline-none placeholder:text-blue-200/20 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/50"
                     placeholder="email@yahoo.com"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -64,6 +100,7 @@ const App = () => {
                     <label className="pl-1 text-xs font-semibold tracking-widest text-blue-300 uppercase">
                       Senha
                     </label>
+
                     <button
                       type="button"
                       className="text-xs text-blue-400 hover:text-blue-300"
@@ -75,10 +112,20 @@ const App = () => {
                     type="password"
                     className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white transition-all outline-none placeholder:text-blue-200/20 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/50"
                     placeholder="••••••••"
+                    autoComplete="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
-                <button className="mt-4 w-full cursor-pointer rounded-2xl bg-blue-600 py-4 font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500 active:scale-95">
+                <button
+                  className={`${loading ? "cursor-not-allowed bg-blue-500" : "cursor-pointer bg-blue-600 hover:bg-blue-500"} mt-4 flex w-full items-center justify-center rounded-2xl py-4 font-bold text-white shadow-lg shadow-blue-600/20 transition-all active:scale-95`}
+                  onClick={handleLogin}
+                  disabled={loading}
+                >
+                  {loading && (
+                    <div className="mt-1 mr-1 h-4 w-4 animate-spin rounded-full border-3 border-white border-t-transparent" />
+                  )}{" "}
                   Acessar Painel
                 </button>
               </form>
@@ -88,7 +135,7 @@ const App = () => {
                   Não possui uma conta?
                 </span>
 
-                <Link href="/" className="m-auto text-white">
+                <Link href="/createAccount" className="m-auto text-white">
                   Criar conta
                 </Link>
               </div>
