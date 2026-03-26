@@ -27,7 +27,6 @@ O sistema esta usando a api criado em nest.js [Link da API](https://github.com/R
 - NextAuth
 - React Hook Form
 - Zod
-- Yup
 
 ## Conclusão
 
