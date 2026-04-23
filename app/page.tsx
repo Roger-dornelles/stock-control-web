@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const App = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -12,6 +16,7 @@ const App = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     const response = await fetch("/api/signin", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -20,18 +25,27 @@ const App = () => {
     const result = await response.json();
 
     if (result.error) {
-      toast.error(
-        result.error ||
-          result.error.erros[0].erros.map((i: string) => i).join(", "),
-      );
+      toast.error(result.error);
+      setLoading(false);
+      return;
     }
+
+    toast.success(result.message);
+
+    const signInResult = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
     setLoading(false);
-    if (!result.error) {
-      toast.success(result.message);
-      setTimeout(() => {
-        // router.push("");
-      }, 1500);
+
+    if (signInResult?.error) {
+      toast.error("Erro ao autenticar. Tente novamente.");
+      return;
     }
+
+    router.push("/");
   };
 
   return (
@@ -69,7 +83,7 @@ const App = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-[450px]">
+          <div className="w-full lg:w-112.5">
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 shadow-2xl backdrop-blur-xl">
               <div className="absolute top-0 left-1/2 h-px w-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
 

@@ -4,9 +4,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
 
-import Providers from "@/providers/QueryClientProvider";
-
 import "./globals.css";
+
+import SessionProviders from "@/components/SessionProviders";
+import Providers from "@/providers/QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,8 +35,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <ToastContainer position="top-right" />
-        <Providers>{children}</Providers>
+        <SessionProviders>
+          <ToastContainer position="top-right" />
+          <Providers>{children}</Providers>
+        </SessionProviders>
       </body>
     </html>
   );
