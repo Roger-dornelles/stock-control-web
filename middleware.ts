@@ -9,8 +9,8 @@ const ROLE_ROUTES: Record<string, string> = {
 };
 
 const ALLOWED_ROLES: Record<string, string[]> = {
-  "/dashBoard/home": ["user", "admin"], // ambos acessam
-  "/admin/home": ["admin"], // somente admin
+  "/dashBoard/home": ["admin"], // admin
+  "/user/home": ["user", "admin"], // somente usuarios
 };
 
 export async function middleware(req: NextRequest) {

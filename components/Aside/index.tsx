@@ -45,16 +45,17 @@ const Aside = ({ children, data }: AsideProps) => {
             <ul
               className={`${isOpen.open && isOpen.groupTitle === group.title ? "block" : "hidden"} pt-2 pb-2`}
             >
-              {group.items.map((item) => {
-                return (
-                  <li
-                    key={item.id}
-                    className="mr-1 cursor-pointer items-center rounded-md px-3 py-1 hover:bg-[#1a2030]"
-                  >
-                    {item.label}
-                  </li>
-                );
-              })}
+              {group.items.length >= 1 &&
+                group.items.map((item) => {
+                  return (
+                    <li
+                      key={item.id}
+                      className="mr-1 cursor-pointer items-center rounded-md px-3 py-1 hover:bg-[#1a2030]"
+                    >
+                      {item.label}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         ))}

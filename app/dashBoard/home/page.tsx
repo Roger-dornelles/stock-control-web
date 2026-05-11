@@ -1,15 +1,13 @@
 "use client";
-
 import { signOut } from "next-auth/react";
 
-const dashBoard = () => {
+const admin = () => {
   return (
     <>
-      <h1>Dashboard</h1>
-
+      <h1>Admin</h1>
       <button onClick={() => signOut({ callbackUrl: "/" })}>SAIR</button>
     </>
   );
 };
 
-export default dashBoard;
+export default admin;
