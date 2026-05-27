@@ -1,5 +1,6 @@
+import { signOut } from "next-auth/react";
 import React from "react";
-import { LuUserRound } from "react-icons/lu";
+import { LuArrowRightToLine, LuUserRound } from "react-icons/lu";
 
 type MenuItem = {
   id: number;
@@ -59,9 +60,18 @@ const Aside = ({ children, data }: AsideProps) => {
             </ul>
           </div>
         ))}
-        <div className="absolute bottom-2 flex w-full cursor-pointer items-center rounded-md bg-[#050b1a] p-2 text-sm text-[1rem] text-[#ffffff] hover:bg-[#1a2030] lg:p-2">
+        <div className="absolute bottom-14 flex w-full cursor-pointer items-center rounded-md bg-[#050b1a] p-2 text-sm text-[1rem] text-[#ffffff] hover:bg-[#1a2030] lg:p-2">
           <LuUserRound /> Usuario
         </div>
+        <button
+          onClick={() => signOut({ callbackUrl: "/" })}
+          className="absolute bottom-2 flex cursor-pointer items-center rounded-md bg-[#050b1a] p-2 py-3 text-sm text-[1rem] text-[#ffffff] hover:bg-[#1a2030] lg:p-2"
+        >
+          <span className="pr-2">
+            <LuArrowRightToLine />
+          </span>{" "}
+          Sair
+        </button>
       </aside>
       <div className={`p-1`}>{children}</div>
     </main>

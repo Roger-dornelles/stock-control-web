@@ -6,7 +6,7 @@ import Aside from "@/components/Aside";
 
 const data = [
   {
-    title: "Produtos",
+    title: "Produto",
     items: [
       { id: 1, label: "Adicionar Produto" },
       { id: 2, label: "Editar Produto" },

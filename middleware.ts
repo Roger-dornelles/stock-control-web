@@ -4,8 +4,8 @@ import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
 const ROLE_ROUTES: Record<string, string> = {
-  admin: "/admin/home",
-  user: "/dashBoard/home",
+  admin: "/dashBoard/home",
+  user: "/user/home",
 };
 
 const ALLOWED_ROLES: Record<string, string[]> = {
