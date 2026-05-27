@@ -4,13 +4,13 @@ import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
 const ROLE_ROUTES: Record<string, string> = {
-  admin: "/admin/home",
-  user: "/dashBoard/home",
+  admin: "/dashBoard/home",
+  user: "/user/home",
 };
 
 const ALLOWED_ROLES: Record<string, string[]> = {
-  "/dashBoard/home": ["user", "admin"], // ambos acessam
-  "/admin/home": ["admin"], // somente admin
+  "/dashBoard/home": ["admin"], // admin
+  "/user/home": ["user", "admin"], // somente usuarios
 };
 
 export async function middleware(req: NextRequest) {

@@ -1,20 +1,4 @@
-"use client";
-
 import React from "react";
-
-import Aside from "@/components/Aside";
-
-const data = [
-  {
-    title: "Produtos",
-    items: [
-      { id: 1, label: "Criar Produto" },
-      { id: 2, label: "Editar Produto" },
-      { id: 3, label: "Excluir Produto" },
-      { id: 4, label: "Exibir Produtos" },
-    ],
-  },
-];
 
 const layout = ({
   children,
@@ -22,9 +6,16 @@ const layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <>
-      <Aside data={data}>{children}</Aside>
-    </>
+    <main>
+      <aside>
+        layout admin
+        <ul>
+          <li>admin 1</li>
+          <li>admin 2</li>
+        </ul>
+      </aside>
+      <>{children}</>
+    </main>
   );
 };
 
