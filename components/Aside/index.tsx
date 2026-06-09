@@ -1,9 +1,12 @@
+"use client";
+
 import { signOut } from "next-auth/react";
 import React from "react";
-import { LuArrowRightToLine, LuUserRound } from "react-icons/lu";
+
+import type { MenuItemId } from "@/app/user/DashboardClient";
 
 type MenuItem = {
-  id: number;
+  id: MenuItemId;
   label: string;
 };
 
@@ -15,65 +18,60 @@ type MenuGroup = {
 interface AsideProps {
   children: React.ReactNode;
   data: MenuGroup[];
+  active: MenuItemId;
+  onSelect: (id: MenuItemId) => void;
 }
 
-const Aside = ({ children, data }: AsideProps) => {
-  const [isOpen, setIsOpen] = React.useState({ open: false, groupTitle: "" });
-
+const Aside = ({ children, data, active, onSelect }: AsideProps) => {
   return (
-    <main className="flex">
-      <aside
-        className={`relative h-screen w-1/6 overflow-y-auto bg-[#050b1a] text-sm text-[#ffffff]`}
-      >
-        <h2 className="pt-3 pb-3 text-center text-xl">Stock Control</h2>
-        {data.map((group) => (
-          <div key={group.title} className="px-4">
-            <h3
-              className={`cursor-pointer rounded-md px-2 py-1 hover:bg-[#1a2030]`}
-              onClick={() =>
-                setIsOpen({
-                  open:
-                    group.title === isOpen.groupTitle
-                      ? !isOpen.open
-                      : !isOpen.open || isOpen.groupTitle !== group.title,
+    <main className="flex h-screen">
+      <aside className="flex h-screen w-56 flex-col gap-6 border-r border-white/10 bg-[#050b1a] p-6">
+        <h2 className="text-lg font-bold text-blue-400">Stock Control</h2>
 
-                  groupTitle: group.title,
-                })
-              }
-            >
-              {group.title}
-            </h3>
-            <ul
-              className={`${isOpen.open && isOpen.groupTitle === group.title ? "block" : "hidden"} pt-2 pb-2`}
-            >
-              {group.items.length >= 1 &&
-                group.items.map((item) => {
+        <nav className="flex flex-col gap-6">
+          {data.map((group) => (
+            <div key={group.title}>
+              <span className="mb-2 block text-xs font-semibold tracking-widest text-blue-300/50 uppercase">
+                {group.title}
+              </span>
+
+              <ul className="flex flex-col gap-1">
+                {group.items.map((item) => {
+                  const isActive = active === item.id;
                   return (
-                    <li
-                      key={item.id}
-                      className="mr-1 cursor-pointer items-center rounded-md px-3 py-1 hover:bg-[#1a2030]"
-                    >
-                      {item.label}
+                    <li key={item.id}>
+                      <button
+                        onClick={() => onSelect(item.id)}
+                        className={`flex w-full items-center gap-2 rounded-md p-2 text-sm transition-colors ${
+                          isActive
+                            ? "bg-blue-600 text-white"
+                            : "text-blue-100 hover:bg-[#1a2030]"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
                     </li>
                   );
                 })}
-            </ul>
+              </ul>
+            </div>
+          ))}
+          <div>
+            <button
+              onClick={() => {
+                signOut({
+                  callbackUrl: "/",
+                });
+              }}
+              className="flex w-full items-center gap-2 rounded-md p-2 text-sm text-blue-100 transition-colors hover:bg-[#1a2030]"
+            >
+              Sair
+            </button>
           </div>
-        ))}
-        <div className="absolute bottom-14 flex w-full cursor-pointer items-center rounded-md bg-[#050b1a] p-2 text-sm text-[1rem] text-[#ffffff] hover:bg-[#1a2030] lg:p-2">
-          <LuUserRound /> Usuario
-        </div>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="absolute bottom-2 flex cursor-pointer items-center rounded-md bg-[#050b1a] p-2 py-3 text-sm text-[1rem] text-[#ffffff] hover:bg-[#1a2030] lg:p-2"
-        >
-          <span className="pr-2">
-            <LuArrowRightToLine />
-          </span>{" "}
-          Sair
-        </button>
+        </nav>
       </aside>
-      <div className={`p-1`}>{children}</div>
+
+      <div className="flex-1 overflow-auto p-6 text-white">{children}</div>
     </main>
   );
 };
