@@ -71,7 +71,7 @@ const Aside = ({ children, data, active, onSelect }: AsideProps) => {
         </nav>
       </aside>
 
-      <div className="flex-1 overflow-auto p-6 text-white">{children}</div>
+      <div className="flex-1 overflow-auto text-white">{children}</div>
     </main>
   );
 };
