@@ -56,7 +56,6 @@ const Table = ({ data, pageSize = 10 }: TableProps) => {
   return (
     <div className="flex h-full flex-col justify-center">
       <div className="mb-2 flex items-center justify-end gap-2">
-        {/* Itens por página */}
         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => table.setPageSize(Number(e.target.value))}
@@ -69,9 +68,9 @@ const Table = ({ data, pageSize = 10 }: TableProps) => {
           ))}
         </select>
       </div>
-      {/* Tabela */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
-        <table className="h-full w-240 text-sm text-white">
+
+      <div className="w-full overflow-x-auto rounded-xl border border-gray-200">
+        <table className="h-full w-full text-sm text-white">
           <thead className="bg-[#0a192f] text-xs tracking-widest text-blue-300 uppercase">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -104,7 +103,6 @@ const Table = ({ data, pageSize = 10 }: TableProps) => {
         </table>
       </div>
 
-      {/* Paginação */}
       <div className="flex items-center justify-center py-3 text-sm text-blue-300">
         <button
           onClick={() => table.previousPage()}

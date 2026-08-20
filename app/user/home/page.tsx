@@ -31,9 +31,11 @@ const dashBoard = () => {
   });
 
   return (
-    <div className={`flex flex-col`}>
-      <div className={`flex-col py-5 pl-5`}>
-        <h1 className={`text-[1.2rem] font-bold`}>Todos os Produtos</h1>
+    <div className={`flex flex-col p-6`}>
+      <div className={`flex-col`}>
+        <h1 className={`text-[1.2rem] font-bold text-[#3d3d3d]`}>
+          Todos os Produtos
+        </h1>
         <p className={`text-[#666]`}>Listagem de todos os produtos.</p>
       </div>
 

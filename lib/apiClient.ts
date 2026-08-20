@@ -1,12 +1,14 @@
 import { cookies } from "next/headers";
 
 const apiClient = async (endpoint: string, options: RequestInit = {}) => {
+  const isFormData = options.body instanceof FormData;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
     ...options,
     headers: {
+      ...(!isFormData && { "Content-Type": "application/json" }),
       ...options.headers,
       Authorization: `Bearer ${accessToken}`,
     },

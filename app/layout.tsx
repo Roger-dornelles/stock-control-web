@@ -1,9 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
+// @ts-ignore: side-effect import for react-toastify global styles
 import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
 
+// @ts-ignore: side-effect import for global styles
 import "./globals.css";
 
 import SessionProviders from "@/components/SessionProviders";
