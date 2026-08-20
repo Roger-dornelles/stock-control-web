@@ -5,7 +5,7 @@ const apiClient = async (endpoint: string, options: RequestInit = {}) => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}${endpoint}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
     ...options,
     headers: {
       ...(!isFormData && { "Content-Type": "application/json" }),
