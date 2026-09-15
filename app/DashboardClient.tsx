@@ -1,4 +1,3 @@
-// app/dashboard/_components/DashboardClient.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -21,10 +20,10 @@ const data: { title: string; items: { id: MenuItemId; label: string }[] }[] = [
   {
     title: "Produto",
     items: [
-      { id: "adicionar", label: "Adicionar Produto" },
-      { id: "editar", label: "Editar Produto" },
-      { id: "excluir", label: "Excluir Produto" },
-      { id: "exibir", label: "Exibir Produtos" },
+      { id: "adicionar" as const, label: "Adicionar Produto" },
+      { id: "editar" as const, label: "Editar Produto" },
+      { id: "excluir" as const, label: "Excluir Produto" },
+      { id: "exibir" as const, label: "Exibir Produtos" },
     ],
   },
   {

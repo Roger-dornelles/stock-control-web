@@ -10,7 +10,7 @@ const ROLE_ROUTES: Record<string, string> = {
 
 const ALLOWED_ROLES: Record<string, string[]> = {
   "/dashBoard/home": ["admin"], // admin
-  "/user/home": ["user", "admin"], // somente usuarios
+  "/user/home": ["user", "admin"], // somente usuarios e admin podem acessar
 };
 
 export async function middleware(req: NextRequest) {
@@ -32,16 +32,25 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(homeRoute, req.url));
   }
 
-  // Verifica permissão para cada rota protegida
   for (const [route, allowedRoles] of Object.entries(ALLOWED_ROLES)) {
     if (pathname.startsWith(route) && !allowedRoles.includes(role)) {
       return NextResponse.redirect(new URL(homeRoute, req.url));
     }
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  // impede que o navegador guarde a página no histórico local
+  response.headers.set(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate",
+  );
+  response.headers.set("Pragma", "no-cache");
+  response.headers.set("Expires", "0");
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/", "/admin/:path*", "/dashBoard/:path*"],
+  matcher: ["/", "/admin/:path*", "/dashBoard/:path*", "/user/:path*"],
 };

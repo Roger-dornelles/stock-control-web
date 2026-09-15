@@ -1,5 +1,5 @@
 interface InputProps {
-  type: "text" | "password";
+  type: "text" | "password" | "number";
   value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className: string;

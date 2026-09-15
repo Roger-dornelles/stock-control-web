@@ -3,7 +3,7 @@
 import { signOut } from "next-auth/react";
 import React from "react";
 
-import type { MenuItemId } from "@/app/user/DashboardClient";
+import type { MenuItemId } from "@/app/DashboardClient";
 
 type MenuItem = {
   id: MenuItemId;

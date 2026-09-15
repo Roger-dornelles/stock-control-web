@@ -39,7 +39,7 @@ const dashBoard = () => {
         <p className={`text-[#666]`}>Listagem de todos os produtos.</p>
       </div>
 
-      <div className="">
+      <div className="text-[#666]">
         {isLoading ? (
           <p>Carregando produtos...</p>
         ) : isError ? (
