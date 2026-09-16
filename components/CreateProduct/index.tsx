@@ -49,8 +49,7 @@ const createProduct = () => {
 
       toast.warning("Preencha todos os campos!");
     } catch (error) {
-      console.log("Erro ao adicionar produto:", error);
-      toast.error("Erro ao adicionar produto.");
+      error && toast.error("Erro ao adicionar produto.");
     }
   };
 

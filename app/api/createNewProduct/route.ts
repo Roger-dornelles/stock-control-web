@@ -21,11 +21,11 @@ export async function POST(request: Request) {
       { status: 200 },
     );
   } catch (error) {
-    console.error("Erro ao criar produto:", error);
     return NextResponse.json(
       {
         message: "Ocorreu um erro tente novamente mais tarde.",
         statusCode: 500,
+        error: error instanceof Error ? error.message : "Erro desconhecido",
       },
       { status: 500 },
     );
